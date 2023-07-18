@@ -1,0 +1,15 @@
+{
+  "source": "src/main/javascript/index.js",
+  "targets": {
+    "default": {
+      "distDir": "target/classes/static"
+    }
+  },
+  "devDependencies": {
+    "parcel": "^2.9.3"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
