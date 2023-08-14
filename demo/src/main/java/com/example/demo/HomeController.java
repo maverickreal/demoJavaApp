@@ -1,10 +1,12 @@
 package com.example.demo;
 
 import java.util.List;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -16,28 +18,30 @@ public class HomeController {
     }
 
     @GetMapping
-    public String index(Model model) {
+    public String index(Model model, Authentication auth) {
         model.addAttribute("videos", videoService.getVideos());
+        model.addAttribute("authentication", auth);
         return "index";
     }
 
-    @PostMapping("new-video")
-    public String newVideo(@ModelAttribute NewVideo newVideo) {
-        videoService.create(newVideo);
+    @PostMapping("/new-video")
+    public String newVideo(@ModelAttribute NewVideo newVideo, Authentication auth) {
+        videoService.create(newVideo, auth.getName());
         return "redirect:/";
     }
 
-    @PostMapping("/multi-field-search")
-    public String multiFieldSearch(@ModelAttribute VideoSearch videoSearch, Model model) {
-        List<VideoEntity> videos = videoService.search(videoSearch);
-        model.addAttribute("videos", videos);
-        return "index";
+    @PostMapping("/search")
+    public String universalSearch(@ModelAttribute Search search, Model model, Authentication authentication) {
+      List<VideoEntity> searchResults = videoService.search(search);
+      model.addAttribute("search", search);
+      model.addAttribute("videos", searchResults);
+      model.addAttribute("authentication", authentication);
+      return "index";
     }
 
-    @PostMapping("/universal-search")
-    public String universalSearch(@ModelAttribute UniversalSearch search, Model model) {
-        List<VideoEntity> videos = videoService.search(search);
-        model.addAttribute("videos", videos);
-        return "index";
+    @PostMapping("/delete/videos/{videoId}")
+    public String deleteVideo(@PathVariable Long videoId) {
+        videoService.delete(videoId);
+        return "redirect:/";
     }
 }
