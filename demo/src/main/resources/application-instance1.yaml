@@ -1,0 +1,7 @@
+spring:
+  mustache.servlet.expose-request-attributes: true
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+logging.level.org.springframework.data.jpa: TRACE
+server.port: 9000

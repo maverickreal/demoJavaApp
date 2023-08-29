@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,6 +20,7 @@ public class UserAccount {
     @Id
     @GeneratedValue
     private long id;
+    @Column(nullable = false)
     private String username, password;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<GrantedAuthority> authorities = new ArrayList<>();
@@ -69,6 +71,14 @@ public class UserAccount {
         return password;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "UserAccount [id=" + id + ", username=" + username + ", password=" + password + ", authorities="
@@ -77,5 +87,9 @@ public class UserAccount {
 
     public List<GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    public long getId() {
+        return id;
     }
 }

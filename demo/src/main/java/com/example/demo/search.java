@@ -1,3 +1,3 @@
 package com.example.demo;
 
-record Search(String value){}
+public record Search(String value){}

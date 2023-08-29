@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
@@ -10,11 +12,8 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 public class VideoService {
-    private final VideoRepository repository;
-
-    public VideoService(VideoRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private VideoRepository repository;
 
     public List<VideoEntity> getVideos() {
         return repository.findAll();

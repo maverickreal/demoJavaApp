@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -7,6 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 public class VideoEntity {
     private @Id @GeneratedValue Long id;
+    @Column(nullable = false)
     private String name, description, username;
 
     protected VideoEntity() {
@@ -18,6 +20,12 @@ public class VideoEntity {
         this.description = _Description;
         this.username = _Username;
         this.id = null;
+    }
+
+    @Override
+    public String toString() {
+        return "VideoEntity [id=" + id + ", name=" + name + ", description=" + description + ", username=" + username
+                + "]";
     }
 
     public Long getId() {
